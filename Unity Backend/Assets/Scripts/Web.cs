@@ -12,10 +12,11 @@ public class Web : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(GetRequest("http://localhost/UnityBackendTutorial/GetData.php"));
+        StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetData.php"));
+        StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetUsers.php"));
     }
 
-    IEnumerator GetRequest(string uri)
+    IEnumerator GetData(string uri)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(uri))
         {
