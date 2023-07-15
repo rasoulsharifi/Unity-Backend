@@ -7,15 +7,12 @@ using UnityEngine.Networking;
 public class Web : MonoBehaviour
 {
 
-
-
-
     void Start()
     {
         //StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetData.php"));
         //StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetUsers.php"));
         //StartCoroutine(Login("rasoul", "1234"));
-        StartCoroutine(RegisterUser("rasoul", "3499"));
+       // StartCoroutine(RegisterUser("navid", "3499"));
     }
 
     IEnumerator GetData(string uri)
@@ -53,7 +50,7 @@ public class Web : MonoBehaviour
         }
     }
 
-    IEnumerator Login(string username, string password)
+    public IEnumerator Login(string username, string password)
     {
         WWWForm form = new WWWForm();
         form.AddField("loginUser", username);
