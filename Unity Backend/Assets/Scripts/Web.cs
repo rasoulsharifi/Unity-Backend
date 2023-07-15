@@ -12,8 +12,10 @@ public class Web : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetData.php"));
-        StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetUsers.php"));
+        //StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetData.php"));
+        //StartCoroutine(GetData("http://localhost/UnityBackendTutorial/GetUsers.php"));
+        StartCoroutine(Login("rasoul", "1234"));
+       // StartCoroutine(RegisterUser("rasoul", "3499"));
     }
 
     IEnumerator GetData(string uri)
@@ -51,6 +53,27 @@ public class Web : MonoBehaviour
         }
     }
 
+    IEnumerator Login(string username, string password)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("loginUser", username);
+        form.AddField("loginPass", password);
+
+        using (UnityWebRequest www = UnityWebRequest.
+            Post("http://localhost/UnityBackendTutorial/Login.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
+            }
+        }
+    }
 
 
 }
