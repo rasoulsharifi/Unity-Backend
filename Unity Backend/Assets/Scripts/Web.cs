@@ -15,6 +15,11 @@ public class Web : MonoBehaviour
        // StartCoroutine(RegisterUser("navid", "3499"));
     }
 
+    public void ShowUserItems()
+    {
+        StartCoroutine(GetItemsIDs(Main.Instance.userInfo.userID));
+    }
+
     IEnumerator GetData(string uri)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(uri))
@@ -29,24 +34,6 @@ public class Web : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 byte[] results = www.downloadHandler.data;
             }
-
-
-            //string[] pages = uri.Split('/');
-            //int page = pages.Length - 1;
-
-            //switch (www.result)
-            //{
-            //    case UnityWebRequest.Result.ConnectionError:
-            //    case UnityWebRequest.Result.DataProcessingError:
-            //        Debug.LogError(pages[page] + ": Error: " + www.error);
-            //        break;
-            //    case UnityWebRequest.Result.ProtocolError:
-            //        Debug.LogError(pages[page] + ": HTTP Error: " + www.error);
-            //        break;
-            //    case UnityWebRequest.Result.Success:
-            //        Debug.Log(pages[page] + ":\nReceived: " + www.downloadHandler.text);
-            //        break;
-            //}
         }
     }
 
@@ -67,7 +54,9 @@ public class Web : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                Debug.Log(www.downloadHandler.text);                
+                Main.Instance.userInfo.SetCredentials(username, password);
+                Main.Instance.userInfo.SetID(www.downloadHandler.text);
             }
         }
     }
@@ -90,6 +79,28 @@ public class Web : MonoBehaviour
             else
             {
                 Debug.Log(www.downloadHandler.text);
+            }
+        }
+    }
+
+    IEnumerator GetItemsIDs(string userID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userID", userID);
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/GetItemsIDs.php", form))      
+        {
+            // Request and wait for the desired page.
+            yield return www.Send();
+
+            if (www.isNetworkError || www.isHttpError)
+                Debug.Log(www.error);
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+
+                // call callback function to pass results
+
             }
         }
     }

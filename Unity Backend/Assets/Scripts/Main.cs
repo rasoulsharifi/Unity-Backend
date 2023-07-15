@@ -5,6 +5,7 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     public Web web;
+    public UserInfo userInfo;
 
     public static Main Instance;
 
