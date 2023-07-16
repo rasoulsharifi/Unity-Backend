@@ -17,7 +17,7 @@ public class Web : MonoBehaviour
 
     public void ShowUserItems()
     {
-        StartCoroutine(GetItemsIDs(Main.Instance.userInfo.userID));
+        //StartCoroutine(GetItemsIDs(Main.Instance.userInfo.userID));
     }
 
     IEnumerator GetData(string uri)
@@ -54,9 +54,25 @@ public class Web : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);                
+                Debug.Log(www.downloadHandler.text);
+
                 Main.Instance.userInfo.SetCredentials(username, password);
                 Main.Instance.userInfo.SetID(www.downloadHandler.text);
+
+                if (www.downloadHandler.text.Contains("Wrong Credentials")
+                    || www.downloadHandler.text.Contains("Username does not exists"))
+                {
+
+                }
+                else
+                {   
+                    // if we logged in correctly
+                    Main.Instance.UserProfile.SetActive(true);
+                    Main.Instance.Login.SetActive(false);
+
+
+
+                }
             }
         }
     }
@@ -83,7 +99,7 @@ public class Web : MonoBehaviour
         }
     }
 
-    IEnumerator GetItemsIDs(string userID)
+    public IEnumerator GetItemsIDs(string userID, System.Action<string> callback)
     {
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);
@@ -100,7 +116,30 @@ public class Web : MonoBehaviour
                 string jsonArray = www.downloadHandler.text;
 
                 // call callback function to pass results
+                callback(jsonArray);
+            }
+        }
+    }
 
+
+    public IEnumerator GetItem(string itemID, System.Action<string> callback)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("itemID", itemID);
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/GetItemsIDs.php", form))
+        {
+            // Request and wait for the desired page.
+            yield return www.Send();
+
+            if (www.isNetworkError || www.isHttpError)
+                Debug.Log(www.error);
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+
+                // call callback function to pass results
+                callback(jsonArray);
             }
         }
     }

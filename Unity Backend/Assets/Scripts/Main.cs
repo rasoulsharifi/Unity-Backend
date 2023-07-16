@@ -6,6 +6,8 @@ public class Main : MonoBehaviour
 {
     public Web web;
     public UserInfo userInfo;
+    public GameObject Login;
+    public GameObject UserProfile;
 
     public static Main Instance;
 
