@@ -7,6 +7,8 @@ using TMPro;
 
 public class Items : MonoBehaviour
 {
+    [SerializeField] GameObject itemPrefab;
+    [SerializeField] Transform itemsHolder;
     Action<string> _createItemsCallback;
 
     void Start()
@@ -34,9 +36,9 @@ public class Items : MonoBehaviour
         {
             // create local variables
             bool isDone = false;
-            string itemID = jsonArray[i].AsObject["ItemID"];
+            string itemID = jsonArray[i].AsObject["itemID"];
+            
             JSONObject itemInfoJson = new JSONObject();
-
             // create a callback to get the information from Web.cs
             Action<string> getItemInfoCallback = (itemInfo) =>
             {
@@ -52,8 +54,8 @@ public class Items : MonoBehaviour
             yield return new WaitUntil(() => isDone == true);
 
             // Instantiate GameObject (item prefab)
-            GameObject item = Instantiate(Resources.Load("Prefabs/Item") as GameObject);
-            item.transform.SetParent(transform);
+            GameObject item = Instantiate(itemPrefab);
+            item.transform.SetParent(itemsHolder);
             item.transform.localScale = Vector3.one;
             item.transform.localPosition = Vector3.zero;
 

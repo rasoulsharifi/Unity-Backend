@@ -15,9 +15,10 @@ public class Web : MonoBehaviour
        // StartCoroutine(RegisterUser("navid", "3499"));
     }
 
+    //System.Action<string> _createItemsCallback;
     public void ShowUserItems()
     {
-        //StartCoroutine(GetItemsIDs(Main.Instance.userInfo.userID));
+        //StartCoroutine(GetItemsIDs(Main.Instance.userInfo.userID, _createItemsCallback));
     }
 
     IEnumerator GetData(string uri)
@@ -54,7 +55,7 @@ public class Web : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                //Debug.Log(www.downloadHandler.text);
 
                 Main.Instance.userInfo.SetCredentials(username, password);
                 Main.Instance.userInfo.SetID(www.downloadHandler.text);
@@ -126,7 +127,7 @@ public class Web : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("itemID", itemID);
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/GetItemsIDs.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/GetItem.php", form))
         {
             // Request and wait for the desired page.
             yield return www.Send();

@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sword
+  m_text: Item Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dcbce5563a07244a81d7632fb340ba9, type: 2}
   m_sharedMaterial: {fileID: -5431043768404941125, guid: 2dcbce5563a07244a81d7632fb340ba9, type: 2}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 200
+  m_text: ???
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dcbce5563a07244a81d7632fb340ba9, type: 2}
   m_sharedMaterial: {fileID: -5431043768404941125, guid: 2dcbce5563a07244a81d7632fb340ba9, type: 2}
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a sword for killing monsters
+  m_text: ????Item Descriptionhttps????
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dcbce5563a07244a81d7632fb340ba9, type: 2}
   m_sharedMaterial: {fileID: -5431043768404941125, guid: 2dcbce5563a07244a81d7632fb340ba9, type: 2}
