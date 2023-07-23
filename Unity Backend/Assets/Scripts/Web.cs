@@ -104,7 +104,7 @@ public class Web : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/GetItemsIDs.php", form))      
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/GetItemsIDs.php", form))
         {
             // Request and wait for the desired page.
             yield return www.Send();
@@ -115,7 +115,6 @@ public class Web : MonoBehaviour
             {
                 Debug.Log(www.downloadHandler.text);
                 string jsonArray = www.downloadHandler.text;
-
                 // call callback function to pass results
                 callback(jsonArray);
             }
@@ -141,6 +140,32 @@ public class Web : MonoBehaviour
 
                 // call callback function to pass results
                 callback(jsonArray);
+            }
+        }
+    }
+
+    public IEnumerator SellItem(string itemID, string userId, string userItemID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("itemID", itemID);
+        form.AddField("userID", userId);
+        form.AddField("userItemID", userItemID);
+
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityBackendTutorial/SellItem.php", form))
+        {
+            // Request and wait for the desired page.
+            yield return www.Send();
+
+            if (www.isNetworkError || www.isHttpError)
+                Debug.Log(www.error);
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
+                string jsonArray = www.downloadHandler.text;
+
+                // call callback function to pass results
+                //callback(jsonArray);
             }
         }
     }
